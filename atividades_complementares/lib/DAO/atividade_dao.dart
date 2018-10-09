@@ -31,7 +31,7 @@ class AtividadeDAO{
     return await openDatabase(path, version: 1, onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE ${atividadeConstants.atividadeTable}(${atividadeConstants.idColumn} INTEGER PRIMARY KEY, ${atividadeConstants.descricaoColumn} TEXT,${atividadeConstants.grupoColumn} TEXT, "
-              "${atividadeConstants.duracaoColumn} INTEGER , ${atividadeConstants.idUserColumn} INTERGER)"
+              "${atividadeConstants.duracaoColumn} INTEGER, ${atividadeConstants.idUserColumn} INTERGER, ${atividadeConstants.idCategoriaColumn} INTERGER)"
       );
     });
   }
@@ -45,7 +45,7 @@ class AtividadeDAO{
   Future<Atividade> getAtividade(int id) async {
     Database dbAtividade = await db;
     List<Map> maps = await dbAtividade.query(atividadeConstants.atividadeTable,
-        columns: [atividadeConstants.idColumn, atividadeConstants.descricaoColumn, atividadeConstants.grupoColumn, atividadeConstants.duracaoColumn,atividadeConstants.idUserColumn],
+        columns: [atividadeConstants.idColumn, atividadeConstants.descricaoColumn, atividadeConstants.grupoColumn, atividadeConstants.duracaoColumn,atividadeConstants.idUserColumn,atividadeConstants.idCategoriaColumn],
         where: "${atividadeConstants.idColumn} = ?",
         whereArgs: [id]);
     if(maps.length > 0){
@@ -87,6 +87,24 @@ class AtividadeDAO{
   Future close() async {
     Database dbAtividade = await db;
     dbAtividade.close();
+  }
+  Future<List> getAllCategoria(int idCategoria) async{
+    Database dbAtividade = await db;
+    List<Map> maps = await dbAtividade.query(atividadeConstants.atividadeTable,
+        columns: [atividadeConstants.idColumn, atividadeConstants.descricaoColumn, atividadeConstants.grupoColumn, atividadeConstants.duracaoColumn,atividadeConstants.idUserColumn,atividadeConstants.idCategoriaColumn],
+        where: "${atividadeConstants.idCategoriaColumn} = ?",
+        whereArgs: [idCategoria]);
+    List<Atividade> listAtividade = List();
+    if(maps.length>0){
+      for(Map m in maps){
+        listAtividade.add(Atividade.fromMap(m));
+      }
+      return listAtividade;
+    }else{
+      return null;
+    }
+
+
   }
 
 

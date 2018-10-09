@@ -6,7 +6,12 @@
       <w>categoria</w>
       <w>categorias</w>
       <w>descricao</w>
+      <w>evento</w>
       <w>grupo</w>
+      <w>meses</w>
+      <w>quantidade</w>
+      <w>reuniao</w>
+      <w>semana</w>
     </words>
   </dictionary>
 </component>

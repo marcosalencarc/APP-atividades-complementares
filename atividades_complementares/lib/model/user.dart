@@ -13,6 +13,7 @@ class User {
   String _email;
   String _login;
   String _password;
+  int _horasProgresso;
 
 
   User({int id, String nome, String matricula, String curso, String email, String login, String password}) {
@@ -99,6 +100,12 @@ class User {
 
   set id(int value) {
     _id = value;
+  }
+
+  int get horasProgresso => _horasProgresso;
+
+  set horasProgresso(int value) {
+    _horasProgresso = value;
   }
 
 

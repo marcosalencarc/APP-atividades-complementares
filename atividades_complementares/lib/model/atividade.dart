@@ -1,4 +1,6 @@
 import 'package:atividades_complementares/constants/atividade_constants.dart' as atividadeConstants;
+import 'package:atividades_complementares/constants/groups_constants.dart' as groups;
+import 'package:atividades_complementares/model/categoria.dart';
 
 /*
 * @author: Marcos de Alencar Carvalho
@@ -11,13 +13,15 @@ class Atividade {
   String _grupo;
   int _duracao;
   int _idUser;
+  Categoria _categoria;
 
-  Atividade({int id, String descricao, String grupo, int duracao,int idUser}) {
+  Atividade({int id, String descricao, String grupo, int duracao,int idUser, Categoria categoria}) {
     this._id = id;
     this._descricao = descricao;
     this._grupo = grupo;
     this._duracao = duracao;
     this._idUser = idUser;
+    this._categoria = categoria;
 
   }
 
@@ -27,6 +31,7 @@ class Atividade {
     _grupo = map[atividadeConstants.grupoColumn];
     _duracao = map[atividadeConstants.duracaoColumn];
     _idUser = map[atividadeConstants.idUserColumn];
+    _categoria = groups.getCategoria(map[atividadeConstants.idCategoriaColumn]);
 
   }
 
@@ -36,7 +41,9 @@ class Atividade {
       atividadeConstants.grupoColumn: _grupo,
       atividadeConstants.duracaoColumn: _duracao,
       atividadeConstants.idUserColumn: _idUser,
+
     };
+    map[atividadeConstants.idCategoriaColumn] = _categoria.id;
     if(_id != null){
       map[atividadeConstants.idColumn] = _id;
     }

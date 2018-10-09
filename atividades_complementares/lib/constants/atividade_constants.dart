@@ -6,3 +6,4 @@ const String descricaoColumn = "descricaoColumn";
 const String grupoColumn = "grupoColumn";
 const String duracaoColumn = "duracaoColumn";
 const String idUserColumn = "idUserColumn";
+const String idCategoriaColumn = "idCategoriaColumn";

@@ -23,7 +23,7 @@ class _CadastroUserPageState extends State<CadastroUserPage> {
 
   Widget _formulario() {
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    
+
     return Form(
       child: Column(
         children: <Widget>[
