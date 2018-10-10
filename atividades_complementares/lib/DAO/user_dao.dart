@@ -57,6 +57,19 @@ class UserDAO{
       return null;
     }
   }
+  Future<User> getUserLoogin(String login) async {
+    Database dbUser = await db;
+    List<Map> maps = await dbUser.query(userConstants.userTable,
+        columns: [userConstants.idColumn, userConstants.nomeColumn, userConstants.matriculaColumn, userConstants.cursoColumn,userConstants.emailColumn,
+        userConstants.loginColumn, userConstants.passwordColumn],
+        where: "${userConstants.loginColumn} = ?",
+        whereArgs: [login]);
+    if(maps.length > 0){
+      return User.fromMap(maps.first);
+    } else {
+      return null;
+    }
+  }
 
   Future<int> deleteUser(int id) async {
     Database dbUser = await db;

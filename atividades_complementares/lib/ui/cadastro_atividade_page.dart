@@ -20,7 +20,7 @@ class _CadastroAtividadePageState extends State<CadastroAtividadePage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(30.0, 90.0, 30.0, 10.0),
         child: Column(
-          children: <Widget>[_formulario()],
+          children: <Widget>[],
         ),
       ),
     );

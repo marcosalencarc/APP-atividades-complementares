@@ -1,4 +1,5 @@
 import 'package:atividades_complementares/constants/user_constants.dart' as userConstants;
+import 'package:atividades_complementares/constants/curso_constants.dart' as cursoConstants;
 
 /*
 * @author: Marcos de Alencar Carvalho
@@ -24,6 +25,7 @@ class User {
     this._email = email;
     this._login = login;
     this._password = password;
+    this._horasProgresso = cursoConstants.cursoHoras[curso];
   }
 
   User.fromMap(Map map){
@@ -34,6 +36,7 @@ class User {
     _email = map[userConstants.emailColumn];
     _login = map[userConstants.loginColumn];
     _password = map[userConstants.passwordColumn];
+    _horasProgresso = cursoConstants.cursoHoras[_curso];
 
   }
 
