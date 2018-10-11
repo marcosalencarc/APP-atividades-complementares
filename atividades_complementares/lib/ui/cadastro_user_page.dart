@@ -1,3 +1,4 @@
+import 'package:atividades_complementares/Controller/cadastro_user_controller.dart';
 import 'package:atividades_complementares/DAO/user_dao.dart';
 import 'package:atividades_complementares/model/user.dart';
 import 'package:atividades_complementares/ui/login_page.dart';
@@ -211,6 +212,7 @@ class _CadastroUserPageState extends State<CadastroUserPage> {
   }
 
   void _efetuarCadastro() {
+    CadastroUserController controller = new CadastroUserController();
     if (_formKey.currentState.validate()) {
       UserDAO userDAO = new UserDAO();
       User usuario = new User(
@@ -220,32 +222,33 @@ class _CadastroUserPageState extends State<CadastroUserPage> {
           email: _emailController.text,
           login: _loginController.text,
           password: _passwordController.text);
-      try {
-        userDAO.saveUser(usuario);
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Sucesso"),
-                content: Text("Usuário cadastrado"),
-                actions: <Widget>[
-                  FlatButton(child: Text("OK"), onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                  },)
-                ],
-              );
-            });
-      } catch (exception) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Ocorreu um erro"),
-                content: Text("tente novamente"),
-              );
-            });
-      }
+      controller.autenticar(usuario).then((result) {
+        if (result) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Sucesso"),
+                  content: Text("Usuário cadastrado"),
+                  actions: <Widget>[
+                    FlatButton(child: Text("OK"), onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
+                    },)
+                  ],
+                );
+              });
+        }else{
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Ocorreu um erro"),
+                  content: Text("tente novamente"),
+                );
+              });
+        }
+      });
     }
   }
 }
