@@ -86,19 +86,21 @@ class _LoginPageState extends State<LoginPage> {
 
   void logar() async {
     if (_formKey.currentState.validate()) {
-        controller.logar(_loginController.text, _passwordController.text).then((user){
-        if(user!=null){
+      User usuario = await controller.logar(_loginController.text, _passwordController.text);
+      print(usuario);
+
+        if(usuario!=null){
           setState(() {
             _mensagem = "";
           });
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => HomePage(user)));
+              MaterialPageRoute(builder: (context) => HomePage(usuario)));
         }else{
           setState(() {
             _mensagem = "Login e/ou senha inválidos";
           });
         }
-      });
+
     }
 
 

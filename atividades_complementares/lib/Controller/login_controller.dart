@@ -8,16 +8,10 @@ class LoginController {
   final UserDAO _userDAO = UserDAO();
 
   Future<User> logar(String login, String senha) async {
-    _userDAO.getUserLoogin(login).then((user) {
-      if (user != null) {
-        if (login == user.login && senha == user.password) {
-          return user;
-        } else {
-          return null;
-        }
-      } else {
-        return null;
-      }
-    });
+    User usuario = await _userDAO.getUserLogin(login);
+    print(usuario);
+    print(usuario.password);
+    return (usuario.login == login && usuario.password == senha) ? usuario : null;
+
   }
 }

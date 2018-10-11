@@ -33,7 +33,8 @@ class UserDAO{
     return await openDatabase(path, version: 1, onCreate: (Database db, int newerVersion) async {
       await db.execute(
           "CREATE TABLE ${userConstants.userTable}(${userConstants.idColumn} INTEGER PRIMARY KEY, ${userConstants.nomeColumn} TEXT,${userConstants.matriculaColumn} TEXT, "
-              "${userConstants.cursoColumn} TEXT , ${userConstants.emailColumn} TEXT, ${userConstants.loginColumn} TEXT,${userConstants.passwordColumn} TEXT)"
+              "${userConstants.cursoColumn} TEXT , ${userConstants.emailColumn} TEXT, ${userConstants.loginColumn} TEXT,${userConstants.passwordColumn} TEXT,"
+              "${userConstants.horasProgressoColumn} INTEGER)"
       );
     });
   }
@@ -48,7 +49,7 @@ class UserDAO{
     Database dbUser = await db;
     List<Map> maps = await dbUser.query(userConstants.userTable,
         columns: [userConstants.idColumn, userConstants.nomeColumn, userConstants.matriculaColumn, userConstants.cursoColumn,userConstants.emailColumn,
-        userConstants.loginColumn, userConstants.passwordColumn],
+        userConstants.loginColumn, userConstants.passwordColumn, userConstants.horasProgressoColumn],
         where: "${userConstants.idColumn} = ?",
         whereArgs: [id]);
     if(maps.length > 0){
@@ -57,11 +58,11 @@ class UserDAO{
       return null;
     }
   }
-  Future<User> getUserLoogin(String login) async {
+  Future<User> getUserLogin(String login) async {
     Database dbUser = await db;
     List<Map> maps = await dbUser.query(userConstants.userTable,
         columns: [userConstants.idColumn, userConstants.nomeColumn, userConstants.matriculaColumn, userConstants.cursoColumn,userConstants.emailColumn,
-        userConstants.loginColumn, userConstants.passwordColumn],
+        userConstants.loginColumn, userConstants.passwordColumn,userConstants.horasProgressoColumn],
         where: "${userConstants.loginColumn} = ?",
         whereArgs: [login]);
     if(maps.length > 0){

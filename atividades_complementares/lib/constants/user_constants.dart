@@ -8,5 +8,6 @@ const String cursoColumn = "cursoColumn";
 const String emailColumn = "emailColumn";
 const String loginColumn = "loginColumn";
 const String passwordColumn = "passwordColumn";
+const String horasProgressoColumn = "horasProgressoColumn";
 
 

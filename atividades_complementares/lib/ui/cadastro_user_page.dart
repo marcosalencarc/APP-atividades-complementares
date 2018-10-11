@@ -221,8 +221,9 @@ class _CadastroUserPageState extends State<CadastroUserPage> {
           curso: _curso,
           email: _emailController.text,
           login: _loginController.text,
-          password: _passwordController.text);
-      controller.autenticar(usuario).then((result) {
+          password: _passwordController.text,
+          horasProgresso: 0);
+      controller.insert(usuario).then((result) {
         if (result) {
           showDialog(
               context: context,

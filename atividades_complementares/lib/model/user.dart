@@ -17,7 +17,7 @@ class User {
   int _horasProgresso;
 
 
-  User({int id, String nome, String matricula, String curso, String email, String login, String password}) {
+  User({int id, String nome, String matricula, String curso, String email, String login, String password, int horasProgresso}) {
     this._id = id;
     this._nome = nome;
     this._matricula = matricula;
@@ -25,7 +25,7 @@ class User {
     this._email = email;
     this._login = login;
     this._password = password;
-    this._horasProgresso = cursoConstants.cursoHoras[curso];
+    this._horasProgresso = horasProgresso;
   }
 
   User.fromMap(Map map){
@@ -36,7 +36,7 @@ class User {
     _email = map[userConstants.emailColumn];
     _login = map[userConstants.loginColumn];
     _password = map[userConstants.passwordColumn];
-    _horasProgresso = cursoConstants.cursoHoras[_curso];
+    _horasProgresso = map[userConstants.horasProgressoColumn];
 
   }
 
@@ -48,6 +48,7 @@ class User {
       userConstants.emailColumn: _email,
       userConstants.loginColumn: _login,
       userConstants.passwordColumn: _password,
+      userConstants.horasProgressoColumn: _horasProgresso
 
     };
     if(_id != null){
@@ -58,7 +59,7 @@ class User {
 
   @override
   String toString() {
-    return "User[Id: $_id, Nome: $_nome,Matricula: $_matricula, Curso: $_curso, Login: $_login, Email: $_email]";
+    return "User[Id: $_id, Nome: $_nome,Matricula: $_matricula, Curso: $_curso, Login: $_login, Email: $_email, Horas: $_horasProgresso]";
   }
 
   // TODO: Implemnetar verificações nos setters;

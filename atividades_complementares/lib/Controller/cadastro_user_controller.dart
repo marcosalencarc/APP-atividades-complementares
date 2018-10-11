@@ -6,9 +6,10 @@ import 'package:atividades_complementares/model/user.dart';
 class CadastroUserController{
   final UserDAO userDAO = UserDAO();
 
-  Future<bool> autenticar(User usuario) async {
+  Future<bool> insert(User usuario) async {
     try {
       userDAO.saveUser(usuario);
+      print(usuario.password);
       return true;
     } catch (exception) {
       return false;
