@@ -43,21 +43,104 @@ class _HomePageState extends State<HomePage> {
                 style:
                 new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
+
               backgroundColor: Colors.red,
               circularStrokeCap: CircularStrokeCap.round,
               progressColor: Colors.lightGreenAccent,
             ),
           ),
+          Container(
+            height: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Spacer(),
+              Container(
+                height: 60.0,
+                width: 80.0,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(6.0),color: Colors.white),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("${cursoConstants.cursoHoras[widget.userlogado.curso]}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26.0),),
+                      Text("Exigente", style: TextStyle(fontSize: 12.0),),
+                    ],
+                  )
+              ),
+              Spacer(),
+              Container(
+                height: 60.0,
+                width: 80.0,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(6.0),color: Colors.white),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("${cursoConstants.cursoHoras[widget.userlogado.curso] - widget.userlogado.horasProgresso}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26.0),),
+                      Text("Restantes"),
+                    ],
+                  )
+              ),
+              Spacer(),
+              Container(
+                height: 60.0,
+                width: 80.0,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(6.0),color: Colors.white),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("${widget.userlogado.horasProgresso}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26.0),),
+                    Text("Concluidas"),
+                  ],
+                )
+              ),
+              Spacer(),
+            ],
+          ),
+
           Expanded(
             flex: 3,
             child: Container(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FlatButton(
-                    child: Row(
-                      children: <Widget>[Icon(Icons.assignment), Text("Atividades")],
+
+                  RaisedButton(
+                    shape: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
+                    onPressed: (){},
+                    child: Container(
+                      height: 100.0,
+                      width: 100.0,
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.assignment,color: Colors.white,),
+                          Text("Atividades", style: TextStyle(color: Colors.white,),),
+                        ],
+                      ),
                     ),
-                    onPressed: () {},
+                    color: Colors.blueAccent,
+                  ),
+                  Container(
+                    width: 10.0,
+                  ),
+                  RaisedButton(
+                    shape: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
+                    onPressed: (){},
+                    child: Container(
+                      height: 100.0,
+                      width: 100.0,
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.chat,color: Colors.white,),
+                          Text("Fórum", style: TextStyle(color: Colors.white,),),
+                        ],
+                      ),
+                    ),
+                    color: Colors.blueAccent,
                   ),
                 ],
               ),
