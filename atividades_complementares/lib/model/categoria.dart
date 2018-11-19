@@ -14,19 +14,13 @@ class Categoria{
   int _grupo;
 
 
-  Categoria({int id, String nome,String descricao, double qntAp,Unidade medida, int grupo}){
+  Categoria({int id, String nome,String descricao, double qntAp, Unidade medida, int grupo}){
     this._id = id;
     this._nome = nome;
     this._descricao = descricao;
-    this._qntAp = maxAp;
+    this._qntAp = qntAp;
     this._medida = medida;
     this._grupo = grupo;
-  }
-
-  double get maxAp => _qntAp;
-
-  set maxAp(double value) {
-    _qntAp = value;
   }
 
   String get descricao => _descricao;
@@ -90,7 +84,7 @@ class Categoria{
 
   @override
   String toString() {
-    return 'Categoria{_nome: $_nome, _descricao: $_descricao, _maxAp: $_qntAp}';
+    return 'Categoria{_nome: $_nome, _descricao: $_descricao, _qntAp: $_qntAp}';
   }
 
 

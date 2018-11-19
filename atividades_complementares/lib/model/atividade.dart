@@ -19,9 +19,16 @@ class Atividade {
     this._id = id;
     this._descricao = descricao;
     this._grupo = grupo;
-    this._duracao = duracao;
     this._idUser = idUser;
     this._categoria = categoria;
+    print(categoria);
+    if(this._categoria != null){
+      if(categoria.qntAp * duracao > groups.groups[_categoria.grupo].maxAp){
+        this._duracao = (categoria.qntAp*duracao) as int;
+      }else{
+        this._duracao = groups.groups[_categoria.grupo].maxAp;
+      }
+    }
 
   }
 

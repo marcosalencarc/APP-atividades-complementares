@@ -16,6 +16,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final LoginController controller = LoginController();
 
+
   String login;
   String password;
 
@@ -37,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Color.fromRGBO(68, 181, 215, 1.0),
+          backgroundColor: Color.fromRGBO(196, 210, 235, 1.0),
           body: SingleChildScrollView(
             padding: EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 10.0),
             child: Center(
@@ -56,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text("Entrar",style: TextStyle(color: Colors.white,fontSize: 16.0,fontWeight: FontWeight.w600),
                       ),
                     ),
-                    color: Colors.blueAccent,
+                    color: Theme.of(context).primaryColor,
                   ),
                   Divider(color: Colors.transparent,height: 2.0,),
                   Text(_mensagem,style: TextStyle(color: Colors.red),),
@@ -85,16 +86,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void logar() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_formKey.currentState.validate()) {
       User usuario = await controller.logar(_loginController.text, _passwordController.text);
-      print(usuario);
 
         if(usuario!=null){
           setState(() {
             _mensagem = "";
           });
+          prefs.setString("login", usuario.login);
+          prefs.setInt('idUser', usuario.id);
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => HomePage(usuario)));
+              MaterialPageRoute(builder: (context) => HomePage(userlogado: usuario)));
         }else{
           setState(() {
             _mensagem = "Login e/ou senha inválidos";

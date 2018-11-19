@@ -107,5 +107,47 @@ class AtividadeDAO{
 
   }
 
+  Future<List> getAllAtividadeUser(int idUser) async{
+    Database dbAtividade = await db;
+    List<Map> maps = await dbAtividade.query(atividadeConstants.atividadeTable,
+        columns: [atividadeConstants.idColumn, atividadeConstants.descricaoColumn, atividadeConstants.grupoColumn, atividadeConstants.duracaoColumn,atividadeConstants.idUserColumn,atividadeConstants.idCategoriaColumn],
+        where: "${atividadeConstants.idUserColumn} = ?",
+        whereArgs: [idUser]);
+    List<Atividade> listAtividade = List();
+    if(maps.length>0){
+      for(Map m in maps){
+        listAtividade.add(Atividade.fromMap(m));
+      }
+      return listAtividade;
+    }else{
+      return null;
+    }
 
+  }
+
+
+  Future<List> getAllAtividadeUserCategoria(int idUser,int idCategoria) async {
+    Database dbAtividade = await db;
+    List<Map> maps = await dbAtividade.query(atividadeConstants.atividadeTable,
+        columns: [
+          atividadeConstants.idColumn,
+          atividadeConstants.descricaoColumn,
+          atividadeConstants.grupoColumn,
+          atividadeConstants.duracaoColumn,
+          atividadeConstants.idUserColumn,
+          atividadeConstants.idCategoriaColumn
+        ],
+        where: "${atividadeConstants.idUserColumn} = ? , ${atividadeConstants
+            .idCategoriaColumn} = ?",
+        whereArgs: [idUser, idCategoria]);
+    List<Atividade> listAtividade = List();
+    if (maps.length > 0) {
+      for (Map m in maps) {
+        listAtividade.add(Atividade.fromMap(m));
+      }
+      return listAtividade;
+    } else {
+      return null;
+    }
+  }
 }

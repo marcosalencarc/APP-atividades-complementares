@@ -1,31 +1,40 @@
+import 'package:atividades_complementares/DAO/user_dao.dart';
 import 'package:atividades_complementares/model/user.dart';
+import 'package:atividades_complementares/ui/groups_page.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:atividades_complementares/constants/curso_constants.dart' as cursoConstants;
-
+import 'package:shared_preferences/shared_preferences.dart';
+SharedPreferences prefs;
 class HomePage extends StatefulWidget {
-  final User userlogado;
+  User userlogado;
 
   @override
   _HomePageState createState() => _HomePageState();
 
-  HomePage(this.userlogado);
+  HomePage({this.userlogado});
 }
 
 class _HomePageState extends State<HomePage> {
+  UserDAO userDAO = UserDAO();
   @override
   void initState() {
-    // TODO: implement initState
+    _getUser();
     super.initState();
   }
 
+  void _getUser() async {
+    prefs = await SharedPreferences.getInstance();
+    widget.userlogado = await userDAO.getUserLogin(prefs.getString("login"));
+    print(widget.userlogado);
+
+  }
   @override
   Widget build(BuildContext context) {
+    _getUser();
     return Scaffold(
-
-      backgroundColor: Color.fromRGBO(68, 181, 215, 1.0),
+      backgroundColor:  Color.fromRGBO(196, 210, 235, 1.0),
       body: Column(
-
         children: <Widget>[
           Container(
             height: 40.0,
@@ -35,15 +44,14 @@ class _HomePageState extends State<HomePage> {
             child:  CircularPercentIndicator(
               radius: 200.0,
               lineWidth: 18.0,
-              fillColor: Color.fromRGBO(68, 181, 215, 1.0),
+              fillColor:  Color.fromRGBO(196, 210, 235, 1.0),
               animation: true,
               percent: progresso(),
               center: new Text(
-                "${progresso()}%",
+                "${(progresso()*100).toStringAsFixed(2)}%",
                 style:
-                new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                new TextStyle(fontWeight: FontWeight.bold, fontSize: 32.0),
               ),
-
               backgroundColor: Colors.red,
               circularStrokeCap: CircularStrokeCap.round,
               progressColor: Colors.lightGreenAccent,
@@ -107,7 +115,9 @@ class _HomePageState extends State<HomePage> {
 
                   RaisedButton(
                     shape: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => GroupPage()));
+                    },
                     child: Container(
                       height: 100.0,
                       width: 100.0,
@@ -120,10 +130,10 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    color: Colors.blueAccent,
+                    color: Color.fromRGBO(64, 78, 130, 1.0),
                   ),
                   Container(
-                    width: 10.0,
+                    width: 18.0,
                   ),
                   RaisedButton(
                     shape: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0)),
@@ -140,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    color: Colors.blueAccent,
+                    color: Color.fromRGBO(64, 78, 130, 1.0),
                   ),
                 ],
               ),
@@ -153,6 +163,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   double progresso(){
-    return 100.0 * widget.userlogado.horasProgresso / cursoConstants.cursoHoras[widget.userlogado.curso];
+    return (100.0 * widget.userlogado.horasProgresso / cursoConstants.cursoHoras[widget.userlogado.curso])/100;
   }
 }
